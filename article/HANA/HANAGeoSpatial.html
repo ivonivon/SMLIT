@@ -1,0 +1,834 @@
+<html>
+<head>
+  <title>How to Use HANA's Geospatial Capabilities</title>
+  <basefont face="Tahoma" size="2" />
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  <meta name="exporter-version" content="Evernote Windows/274507; Windows/6.3.9600;"/>
+  <style>
+    body, td {
+      font-family: Tahoma;
+      font-size: 10pt;
+    }
+  </style>
+</head>
+<body>
+<a name="4774"/>
+
+<div><div><br/><div style="font-size: 16px"><div style="box-sizing:border-box;font-family:sans-serif;font-size:62.5%;-webkit-tap-highlight-color:rgba(0, 0, 0, 0);overflow-x:hidden;">
+
+
+<div style="box-sizing:border-box;margin:0px;font-family:Roboto, sans-serif;font-size:13px;line-height:1.428571429;color:rgb(0, 0, 0);background-color:rgb(198, 198, 198);overflow-x:hidden;padding:0px;width:100%;min-height:100%;position:relative;">
+       
+  
+
+
+
+    
+
+
+    <div style="box-sizing:border-box;position:fixed;z-index:20;overflow:hidden;transition:all 0.3s;-webkit-transition:all 0.3s;background-color:rgb(88, 88, 88);top:0px;width:310px;height:100%;left:-310px;">
+    
+
+        <ul style="box-sizing:border-box;list-style-type:none;margin:0px;padding:0px;">
+           
+            
+                <li style="box-sizing:border-box;display:block;text-align:center;border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:rgb(102, 102, 102);border-top-style:none;border-top-width:1px;border-top-color:rgb(102, 102, 102);"></li>
+       
+                <li style="box-sizing:border-box;position:relative;display:block;text-align:center;border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:rgb(102, 102, 102);border-top-style:solid;border-top-width:1px;border-top-color:rgb(102, 102, 102);"><a href="http://sapexperts.wispubs.com/SAP-Professional-Journal/search?category=3EDC13ED9CEA4C24B99DA27A4993D750" style="box-sizing:border-box;background:transparent;color:rgb(255, 255, 255);text-decoration:none;font-family:Roboto, sans-serif;font-weight:300;width:275px;display:block;padding:10px;font-size:14px;">Administration <img src="HANAGeoSpatial_files/Image.png" type="image/png" height="5" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="12"/></a></li><li style="box-sizing:border-box;position:relative;display:block;text-align:center;border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:rgb(102, 102, 102);border-top-style:solid;border-top-width:1px;border-top-color:rgb(102, 102, 102);"><a href="http://sapexperts.wispubs.com/SAP-Professional-Journal/search?category=A5C328078BBE456293B7D35756E72344" style="box-sizing:border-box;background:transparent;color:rgb(255, 255, 255);text-decoration:none;font-family:Roboto, sans-serif;font-weight:300;width:275px;display:block;padding:10px;font-size:14px;">Development <img src="HANAGeoSpatial_files/Image [1].png" type="image/png" height="5" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="12"/></a></li><li style="box-sizing:border-box;position:relative;display:block;text-align:center;border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:rgb(102, 102, 102);border-top-style:solid;border-top-width:1px;border-top-color:rgb(102, 102, 102);"><a href="http://sapexperts.wispubs.com/SAP-Professional-Journal/search?category=3C92F8A474834C6D847769DDC329C92C" style="box-sizing:border-box;background:transparent;color:rgb(255, 255, 255);text-decoration:none;font-family:Roboto, sans-serif;font-weight:300;width:275px;display:block;padding:10px;font-size:14px;">GRC <img src="HANAGeoSpatial_files/Image [2].png" type="image/png" height="5" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="12"/></a></li><li style="box-sizing:border-box;position:relative;display:block;text-align:center;border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:rgb(102, 102, 102);border-top-style:solid;border-top-width:1px;border-top-color:rgb(102, 102, 102);"><a href="http://sapexperts.wispubs.com/SAP-Professional-Journal/search?category=C133A3B0E0B4482499912D6BC3E40502" style="box-sizing:border-box;background:transparent;color:rgb(255, 255, 255);text-decoration:none;font-family:Roboto, sans-serif;font-weight:300;width:275px;display:block;padding:10px;font-size:14px;">HANA <img src="HANAGeoSpatial_files/Image [3].png" type="image/png" height="5" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="12"/></a></li><li style="box-sizing:border-box;position:relative;display:block;text-align:center;border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:rgb(102, 102, 102);border-top-style:solid;border-top-width:1px;border-top-color:rgb(102, 102, 102);"><a href="http://sapexperts.wispubs.com/SAP-Professional-Journal/search?category=93CC548088134A39B6DE2F059A254D58" style="box-sizing:border-box;background:transparent;color:rgb(255, 255, 255);text-decoration:none;font-family:Roboto, sans-serif;font-weight:300;width:275px;display:block;padding:10px;font-size:14px;">Mobile <img src="HANAGeoSpatial_files/Image [4].png" type="image/png" height="5" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="12"/></a></li><li style="box-sizing:border-box;position:relative;display:block;text-align:center;border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:rgb(102, 102, 102);border-top-style:solid;border-top-width:1px;border-top-color:rgb(102, 102, 102);"><a href="http://sapexperts.wispubs.com/SAP-Professional-Journal/search?category=DE90B44E68134A9AB619C3C262103F53" style="box-sizing:border-box;background:transparent;color:rgb(255, 255, 255);text-decoration:none;font-family:Roboto, sans-serif;font-weight:300;width:275px;display:block;padding:10px;font-size:14px;">Solution Manager <img src="HANAGeoSpatial_files/Image [5].png" type="image/png" height="5" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="12"/></a></li><li style="box-sizing:border-box;position:relative;display:block;text-align:center;border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:rgb(102, 102, 102);border-top-style:solid;border-top-width:1px;border-top-color:rgb(102, 102, 102);"><a href="http://sapexperts.wispubs.com/SAP-Professional-Journal/search?category=50AB97649269403DAC0D846CEE644978" style="box-sizing:border-box;background:transparent;color:rgb(255, 255, 255);text-decoration:none;font-family:Roboto, sans-serif;font-weight:300;width:275px;display:block;padding:10px;font-size:14px;">Upgrades and Implementations <img src="HANAGeoSpatial_files/Image [6].png" type="image/png" height="5" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="12"/></a></li>   
+                         
+            </ul>
+
+
+       </div>
+
+       
+
+    <div style="box-sizing:border-box;">
+    <div style="box-sizing:border-box;margin-right:auto;margin-left:auto;width:1170px;box-shadow:rgb(119, 119, 119) 0px 10px 80px;margin-bottom:20px;position:relative;max-width:1120px;padding:0px;background-color:rgb(255, 255, 255);"><span style="display:table;"> </span>
+        <div style="box-sizing:border-box;">
+<div style="box-sizing:border-box;">
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div style="box-sizing:border-box;">
+
+	
+	
+</div>
+            
+
+
+            <div style="box-sizing:border-box;margin:0px;padding:0px 35px;background-color:rgb(255, 255, 255);"><span style="display:table;"> </span>
+         
+
+                    
+      <div style="box-sizing:border-box;margin:0px;background-color:rgb(206, 206, 206);"><span style="display:table;"> </span>
+          <div style="box-sizing:border-box;position:relative;min-height:0px;padding-right:15px;padding-left:0px;float:left;width:100%;margin-bottom:0px;list-style:none;border:0px;border-radius:0px;padding-top:5px;"><span style="list-style:none;display:table;"> </span>
+                        <ul style="box-sizing:border-box;margin-top:0px;margin-bottom:10px;">
+                            
+        
+            <li style="box-sizing:border-box;display:inline;margin-left:-1px;"><a href="http://sapexperts.wispubs.com/" style="box-sizing:border-box;background:transparent;color:rgb(255, 255, 255);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;padding:10px 20px;font-size:16px;">All Experts</a></li>
+            
+            
+            
+        
+        
+    
+        
+            <li style="box-sizing:border-box;display:inline;margin-left:-1px;"><a href="http://sapexperts.wispubs.com/BI" style="box-sizing:border-box;background:transparent;color:rgb(255, 255, 255);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;padding:10px 20px;font-size:16px;">BI Expert</a></li>
+            
+            
+            
+        
+        
+    
+        
+            <li style="box-sizing:border-box;display:inline;margin-left:-1px;"><a href="http://sapexperts.wispubs.com/CRM" style="box-sizing:border-box;background:transparent;color:rgb(255, 255, 255);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;padding:10px 20px;font-size:16px;">CRM Expert</a></li>
+            
+            
+            
+        
+        
+    
+        
+            <li style="box-sizing:border-box;display:inline;margin-left:-1px;"><a href="http://sapexperts.wispubs.com/Financials" style="box-sizing:border-box;background:transparent;color:rgb(255, 255, 255);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;padding:10px 20px;font-size:16px;">Financials Expert</a></li>
+            
+            
+            
+        
+        
+    
+        
+            <li style="box-sizing:border-box;display:inline;margin-left:-1px;"><a href="http://sapexperts.wispubs.com/HR" style="box-sizing:border-box;background:transparent;color:rgb(255, 255, 255);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;padding:10px 20px;font-size:16px;">HR Expert</a></li>
+            
+            
+            
+        
+        
+    
+        
+            <li style="box-sizing:border-box;display:inline;margin-left:-1px;"><a href="http://sapexperts.wispubs.com/SCM" style="box-sizing:border-box;background:transparent;color:rgb(255, 255, 255);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;padding:10px 20px;font-size:16px;">SCM Expert</a></li>
+            
+            
+            
+        
+        
+    
+        
+            <li style="box-sizing:border-box;display:inline;margin-left:-1px;"><a href="http://sapexperts.wispubs.com/SAP-Professional-Journal" style="box-sizing:border-box;background:transparent;color:rgb(255, 255, 255);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;padding:10px 20px;font-size:16px;">SAP Professional Journal</a></li>
+            
+            
+            
+        
+        
+    
+                        </ul>
+                      <span style="list-style:none;display:table;clear:both;"> </span></div> 
+              
+                 <span style="display:table;clear:both;"> </span></div> 
+              <div style="box-sizing:border-box;position:relative;min-height:1px;float:left;width:100%;margin-top:15px;padding:0px;">
+                    
+
+
+
+<div style="box-sizing:border-box;margin:0px;"><span style="display:table;"> </span>
+    <div style="box-sizing:border-box;position:relative;min-height:1px;padding-right:15px;padding-left:15px;float:left;width:100%;">
+
+        <ul style="box-sizing:border-box;padding:0px;margin:10px 0px 0px;text-align:right;">
+            <li style="box-sizing:border-box;list-style-type:none;display:inline;"><a href="http://sapinsideronline.com/" style="box-sizing:border-box;background:transparent;color:rgb(11, 86, 166);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;margin:0px 1px;" target="_blank">
+                <img src="HANAGeoSpatial_files/Image [7].png" type="image/png" height="29" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="219"/></a></li>
+            
+                   <a href="https://www.facebook.com/pages/SAPexperts/107162542650458" style="box-sizing:border-box;background:transparent;color:rgb(11, 86, 166);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;margin:0px 1px;" target="_blank"><img src="HANAGeoSpatial_files/Image [8].png" type="image/png" height="20" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="20"/></a>
+                
+                   <a href="https://twitter.com/SAPexperts" style="box-sizing:border-box;background:transparent;color:rgb(11, 86, 166);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;margin:0px 1px;" target="_blank"><img src="HANAGeoSpatial_files/Image [9].png" type="image/png" height="20" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="20"/></a>
+                
+                   <a href="http://www.linkedin.com/groups/SAPexperts-Connection-4084856" style="box-sizing:border-box;background:transparent;color:rgb(11, 86, 166);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;margin:0px 1px;" target="_blank"><img src="HANAGeoSpatial_files/Image [10].png" type="image/png" height="20" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="19"/></a>
+                
+                   <a href="http://sapexperts.wispubs.com/Feeds" style="box-sizing:border-box;background:transparent;color:rgb(11, 86, 166);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;margin:0px 1px;" target="_blank"><img src="HANAGeoSpatial_files/Image [11].png" type="image/png" height="20" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="20"/></a>
+                
+             
+
+
+        </ul>
+    </div>
+<span style="display:table;clear:both;"> </span></div>
+<div style="box-sizing:border-box;margin:0px;"><span style="display:table;"> </span>
+    <div style="box-sizing:border-box;position:relative;min-height:1px;float:left;width:50%;padding:0px;margin:0px;">
+        <span style="box-sizing:border-box;display:block;height:auto;max-width:100%;">
+            <a href="http://sapexperts.wispubs.com/SAP-Professional-Journal" style="box-sizing:border-box;background:transparent;color:rgb(11, 86, 166);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;display:block;height:auto;max-width:100%;"><img src="HANAGeoSpatial_files/Image.jpg" type="image/jpeg" height="161" style="box-sizing:border-box;border:0px;vertical-align:middle;display:block;height:auto;max-width:100%;" width="519"/></a>
+        </span>
+    </div>
+    <div style="box-sizing:border-box;position:relative;min-height:1px;float:left;width:50%;padding:0px;margin:0px;">
+        <a href="http://sapexperts.wispubs.com/SAP-Professional-Journal" style="box-sizing:border-box;background:transparent;color:rgb(11, 86, 166);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;">
+
+        <p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;color:rgb(253, 184, 19);font-size:25px;padding-top:55px;">
+             Your source for deep-dive instruction for SAP technical and support professionals
+        </p>
+    </a>
+    </div>
+<span style="display:table;clear:both;"> </span></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </div>
+            <span style="display:table;clear:both;"> </span></div>
+
+
+            
+            <div style="box-sizing:border-box;margin:0px;"><span style="display:table;"> </span>
+
+
+                
+   <div style="box-sizing:border-box;">
+        <a href="http://www.emissary.io/network/SAPExperts/#/" style="box-sizing:border-box;background:transparent;color:rgb(11, 86, 166);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;" target="_blank">
+            <img src="HANAGeoSpatial_files/Image [12].png" type="image/png" height="43" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="1120"/>
+            
+        </a>
+   </div>
+
+
+            <span style="display:table;clear:both;"> </span></div>
+
+
+            <div style="box-sizing:border-box;margin:0px;background-color:rgb(51, 51, 51);"><span style="display:table;"> </span>
+                
+
+
+
+
+
+  <div style="box-sizing:border-box;position:relative;min-height:1px;float:left;width:100%;padding:0px;">
+    <div style="box-sizing:border-box;position:relative;min-height:1px;float:left;width:16.6666666666667%;padding:0px;">
+
+
+        <a href="http://sapexperts.wispubs.com/SAP-Professional-Journal/Articles/How-to-Use-HANA-s-Geospatial-Capabilities?id=E9ECB74A143142899904816A772EA5B2#" style="box-sizing:border-box;background:transparent;color:rgb(255, 255, 255);text-decoration:none;font-family:Roboto, sans-serif;font-weight:normal;display:inline-block;padding:6px 12px;margin-bottom:0px;font-size:14px;line-height:1.428571429;text-align:center;white-space:nowrap;vertical-align:middle;cursor:pointer;border:0px;border-radius:0px;-webkit-user-select:none;background-image:none;background-color:rgb(11, 86, 166);float:left;">
+        <img src="HANAGeoSpatial_files/Image [13].png" type="image/png" height="17" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="16"/>    Categories   <img src="HANAGeoSpatial_files/Image [14].png" type="image/png" height="5" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="12"/></a>
+
+</div>
+
+
+  <div style="box-sizing:border-box;position:relative;min-height:1px;padding-right:15px;padding-left:15px;float:left;width:58.3333333333333%;text-align:center;">
+    <img src="HANAGeoSpatial_files/Image [15].png" type="image/png" height="27" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="23"/>
+    
+    <img alt="Submit" src="" style="box-sizing:border-box;margin:0px;font-family:inherit;font-size:inherit;line-height:inherit;margin-top:5px;"></img>
+    <a href="http://sapexperts.wispubs.com/SAP-Professional-Journal/Search" style="box-sizing:border-box;background:transparent;color:rgb(11, 86, 166);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;"></a>
+</div>
+
+
+
+
+<div style="box-sizing:border-box;">
+	
+
+    <div style="box-sizing:border-box;position:relative;min-height:1px;float:left;width:25%;padding:0px;">
+        <a href="http://sapexperts.wispubs.com/Account/Log-Out?returnUrl=http://sapexperts.wispubs.com/SAP-Professional-Journal/Articles/How-to-Use-HANA-s-Geospatial-Capabilities?id=E9ECB74A143142899904816A772EA5B2&amp;hubPage=SAP-Professional-Journal" style="box-sizing:border-box;background:transparent;color:rgb(255, 255, 255);text-decoration:none;font-family:Roboto, sans-serif;font-weight:normal;display:inline-block;padding:6px 30px;margin-bottom:0px;font-size:14px;line-height:1.428571429;text-align:center;white-space:nowrap;vertical-align:middle;cursor:pointer;border:0px;border-radius:0px;-webkit-user-select:none;background-image:none;background-color:rgb(11, 86, 166);float:right;">Logout</a> 
+        <a href="https://sapexperts.wispubs.com/Account/My-Account?returnUrl=http://sapexperts.wispubs.com/SAP-Professional-Journal/Articles/How-to-Use-HANA-s-Geospatial-Capabilities?id=E9ECB74A143142899904816A772EA5B2&amp;hubPage=SAP-Professional-Journal" style="box-sizing:border-box;background:transparent;color:rgb(255, 255, 255);text-decoration:none;font-family:Roboto, sans-serif;font-weight:normal;display:inline-block;padding:6px 30px;margin-bottom:0px;font-size:14px;line-height:1.428571429;text-align:center;white-space:nowrap;vertical-align:middle;cursor:pointer;border:0px;border-radius:0px;-webkit-user-select:none;background-image:none;background-color:rgb(88, 88, 88);float:right;">My Account</a>
+    </div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+            <span style="display:table;clear:both;"> </span></div>
+            <div style="box-sizing:border-box;margin:0px;margin-top:10px;"><span style="display:table;"> </span>
+                <div style="box-sizing:border-box;position:relative;min-height:1px;padding-right:15px;padding-left:15px;float:left;width:75%;">
+                    <div style="box-sizing:border-box;position:relative;min-height:1px;padding-right:15px;padding-left:15px;float:left;width:100%;">
+                        
+
+
+
+
+
+<div style="box-sizing:border-box;">
+    <div style="box-sizing:border-box;">
+      
+ 
+
+        
+        
+        
+        <h1 style="box-sizing:border-box;margin:0px 0px 20px;font-size:2.2em;font-family:Roboto, sans-serif;font-weight:700;line-height:1.1;color:rgb(0, 0, 0);margin-bottom:0.5em;">
+            How to Use HANA's Geospatial Capabilities
+            </h1>
+
+        <ul style="box-sizing:border-box;margin-top:0px;margin-bottom:10px;font-style:italic;list-style:none;margin-left:-15px;display:inline;">
+            
+            <li style="box-sizing:border-box;">by Akash Kumar, Technical Consultant, SAP Labs</li>
+            
+            <li style="box-sizing:border-box;"><span style="box-sizing:border-box;float:left;">September 8, 2014 </span>
+                <span style="box-sizing:border-box;float:right;">
+
+        
+
+           
+            
+
+
+
+
+
+<div style="box-sizing:border-box;">
+<a style="box-sizing:border-box;background:transparent;color:rgb(11, 86, 166);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;"></a>
+<a style="box-sizing:border-box;background:transparent;color:rgb(11, 86, 166);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;"></a>
+<a style="box-sizing:border-box;background:transparent;color:rgb(11, 86, 166);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;"></a>
+<a style="box-sizing:border-box;background:transparent;color:rgb(11, 86, 166);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;"></a>
+<a style="box-sizing:border-box;background:transparent;color:rgb(11, 86, 166);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;"></a>
+
+</div>
+
+
+
+  </span></li>
+        </ul>
+        <div style="box-sizing:border-box;clear:both;margin-bottom:.5em;"></div>
+    </div>
+     
+    
+    <div style="box-sizing:border-box;">
+    <div style="box-sizing:border-box;font-weight:bold;margin-top:1em;margin-bottom:1em;">
+        SAP HANA’s spatial feature is part of a platform that stores both geospatial and business data. Akash Kumar shows how to use it to perform operations such as distance calculation between objects, the union of objects, and analytics on spatial data.
+		</div>
+	
+     
+    <div style="box-sizing:border-box;width:96.7213114754098%;border-radius:10px;padding:10px;margin-bottom:1em;line-height:1.5em;background-color:rgb(222, 222, 222);">
+        <h5 style="box-sizing:border-box;font-family:Roboto, sans-serif;font-weight:700;line-height:1.3em;color:rgb(0, 0, 0);margin-top:10px;margin-bottom:10px;font-size:1em;">Key Concept</h5>
+        <p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"><strong style="box-sizing:border-box;font-weight:bold;">Geospatial HANA</strong> allows users to store massive amounts of data in real time on maps and then to visualize it.The real-time spatial information can be used in many industries, including retail, transportation, oil and gas, manufacturing, media, and defense.</p>
+    </div>
+    
+
+    </div>
+
+
+    
+
+
+    
+  
+
+        
+
+
+
+    Geospatial HANA allows users to understand, question, and view data in way that reveals patterns, trends, or other analytics in the form of maps. I explain the steps to take to show HANA spatial data on a geospatial map by creating five random points on a map of the United States. First, here is some background information on how data is stored and some common terminology.<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">
+</p><p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">The spatial data is stored in columnar tables as points and various other forms of polygons. For example, a company office can be stored as a point or an area can be stored as a polygon. The most common operations performed on spatial data are calculating the distance between geometries and union or intersection of objects. An example of a union of objects would be the combined sales figures from two oil fields. Methods and constructors are used to access and manipulate the data.</p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">Geometry is the super type for all the following spatial data types in HANA. A column defined as a geometry can store both linestring and multipolygon values. The spatial data type hierarchy is shown in <strong style="box-sizing:border-box;font-weight:bold;">Figure 1</strong>.</p>
+<ul style="box-sizing:border-box;margin-top:0px;margin-bottom:10px;">
+    <li style="box-sizing:border-box;">A point is a single location on a map used to represent locations such as addresses. </li>
+    <li style="box-sizing:border-box;">A multipoint is a collection of individual points used to show multiple locations such as multiple addresses.</li>
+    <li style="box-sizing:border-box;">A linestring is a geometry with a length, but without any area. It is used for rivers and roads.</li>
+    <li style="box-sizing:border-box;">A multistring is a collection of linestrings and is used to represent geographic features. </li>
+    <li style="box-sizing:border-box;">A polygon defines a region in space and is used to represent towns, states, and geographic features such as parks.</li>
+    <li style="box-sizing:border-box;">A multipolygon is a collection of zero or more polygons and is used to represent geographic features such as a system of lakes.</li>
+</ul>
+<table border="1" cellpadding="0" cellspacing="0" style="font-size:inherit;font-weight:inherit;font-style:inherit;font-variant:inherit;box-sizing:border-box;border-collapse:collapse;border-spacing:0px;max-width:100%;background-color:transparent;border:1px solid rgb(127, 129, 138);">
+    <tbody style="box-sizing:border-box;">
+        <tr style="box-sizing:border-box;height:13pt;background-color:rgb(198, 207, 233);">
+            <td style="box-sizing:border-box;width:371.25pt;border:1px solid rgb(127, 129, 138);padding:7px;height:13pt;text-align:left;" valign="top"> <br style="box-sizing:border-box;"/>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div style="box-sizing:border-box;"><img src="HANAGeoSpatial_files/SPJ2014i04a14f1.gif" type="image/gif" height="712" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="550"/><br style="box-sizing:border-box;"/><div style="box-sizing:border-box;border-top-width:3px;border-top-style:solid;border-top-color:rgb(233, 170, 0);color:white;font-weight:bold;padding:2px 5px 5px;text-align:center;vertical-align:middle;width:5em;margin-top:10px;float:left;border-top-left-radius:10px;border-bottom-left-radius:10px;margin-bottom:10px;background-color:rgb(233, 170, 0);">Figure 1</div><div style="box-sizing:border-box;font-weight:bold;margin-top:10px;width:80%;margin-bottom:5px;border-top-width:1px;border-top-style:solid;border-top-color:rgb(233, 170, 0);float:left;"><span style="box-sizing:border-box;margin-top:3px;margin-left:10px;display:block;">Hierarchy of ST_Geometry</span></div><div style="box-sizing:border-box;clear:both;"><span style="display:table;"> </span><span style="display:table;clear:both;"> </span></div></div>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">The prefix ST is used for all the data types in the hierarchy. The class ST_Geometry is a super class, whereas all the other data types are derived classes.</p>
+<div style="box-sizing:border-box;width:96.7213114754098%;border-radius:10px;padding:10px;margin-bottom:1em;margin-top:1em;line-height:18px;background-color:rgb(255, 241, 208);"><strong style="box-sizing:border-box;font-weight:bold;">Note</strong><br style="box-sizing:border-box;"/>
+The diagram in <strong style="box-sizing:border-box;font-weight:bold;">Figure 1</strong> with A and B shows inheritance (i.e., A
+is a superclass of B). Inheritance is a concept in object-oriented
+programming (OOP). A similar concept is also applied in a spatial data
+hierarchy.
+</div>
+I have imported spatial data in HANA and shown it on a map via a Server-Side JavaScript (XSJS) service. Developers can further analyze the data according to its business function and industry.
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">SAP HANA Extended Services (XS) can be thought of as a lightweight application web server that runs on top of HANA. It provides an opportunity for a lower cost of development as well as performance benefits because of the closeness of the application and flow logic to a database. XS provides the ability to create applications that have an HTTP-based user interface (UI), such as a browser and mobile apps, that runs directly on SAP HANA without additional external servers or system landscape components.<br style="box-sizing:border-box;"/>
+<br style="box-sizing:border-box;"/>
+XS allows the development on the server side using JavaScript, which has the file extension .xsjs. XSJS allows you to perform insert, delete, and update operations in HANA. In my example I have created XSJS files in step 3 that are called from map.js. The steps to show HANA spatial data on a geospatial map follow.</p>
+<strong style="box-sizing:border-box;font-weight:bold;">
+<h2 style="box-sizing:border-box;font-family:Roboto, sans-serif;font-weight:700;line-height:1.1;color:rgb(0, 0, 0);margin-top:20px;margin-bottom:10px;font-size:1.8em;">Step 1. Create an XS Project</h2>
+</strong>You create an XS project to store all the development objects in one place. I have created an XS project for my example using the following steps. The pointers are the coordinates I imported into the HANA system from ESRI files. A geospatial map shows those coordinates to the business users.<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"></p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">Go to HANA Studio and follow menu path File &gt; New &gt; Project. In the screen that appears (<strong style="box-sizing:border-box;font-weight:bold;">Figure 2</strong>) enter the Project name and click the Next button.</p>
+<div style="box-sizing:border-box;"><img src="HANAGeoSpatial_files/SPJ2014i04a14f2.gif" type="image/gif" height="496" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="519"/><br style="box-sizing:border-box;"/><div style="box-sizing:border-box;border-top-width:3px;border-top-style:solid;border-top-color:rgb(233, 170, 0);color:white;font-weight:bold;padding:2px 5px 5px;text-align:center;vertical-align:middle;width:5em;margin-top:10px;float:left;border-top-left-radius:10px;border-bottom-left-radius:10px;margin-bottom:10px;background-color:rgb(233, 170, 0);">Figure 2</div><div style="box-sizing:border-box;font-weight:bold;margin-top:10px;width:80%;margin-bottom:5px;border-top-width:1px;border-top-style:solid;border-top-color:rgb(233, 170, 0);float:left;"><span style="box-sizing:border-box;margin-top:3px;margin-left:10px;display:block;">Name the project</span></div><div style="box-sizing:border-box;clear:both;"><span style="display:table;"> </span><span style="display:table;clear:both;"> </span></div></div>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">In the next screen (<strong style="box-sizing:border-box;font-weight:bold;">Figure 3</strong>) the highlighted workspace is the link between your local system and HANA. It allows you to synchronize the changes done in the local system with the repository, which further is shared with other team members. This allows everyone to see the recent changes done in the code. Select the workspace and enter the Repository Package in <strong style="box-sizing:border-box;font-weight:bold;">Figure 3</strong>. All the workspaces by default come under Repository Workspaces. Click any workspace, select it, and then click the Finish button to create the project.</p>
+<div style="box-sizing:border-box;"><img src="HANAGeoSpatial_files/SPJ2014i04a14f3.gif" type="image/gif" height="495" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="523"/><br style="box-sizing:border-box;"/><div style="box-sizing:border-box;border-top-width:3px;border-top-style:solid;border-top-color:rgb(233, 170, 0);color:white;font-weight:bold;padding:2px 5px 5px;text-align:center;vertical-align:middle;width:5em;margin-top:10px;float:left;border-top-left-radius:10px;border-bottom-left-radius:10px;margin-bottom:10px;background-color:rgb(233, 170, 0);">Figure 3</div><div style="box-sizing:border-box;font-weight:bold;margin-top:10px;width:80%;margin-bottom:5px;border-top-width:1px;border-top-style:solid;border-top-color:rgb(233, 170, 0);float:left;"><span style="box-sizing:border-box;margin-top:3px;margin-left:10px;display:block;">Workspace and repository package</span></div><div style="box-sizing:border-box;clear:both;"><span style="display:table;"> </span><span style="display:table;clear:both;"> </span></div></div>
+<h2 style="box-sizing:border-box;font-family:Roboto, sans-serif;font-weight:700;line-height:1.1;color:rgb(0, 0, 0);margin-top:20px;margin-bottom:10px;font-size:1.8em;"><strong style="box-sizing:border-box;font-weight:bold;">Step 2. Import the Data to HANA</strong></h2>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">You can either upload the files to HANA or create the data by using a SQL query. I use the first way to import ESRI files into HANA. Following are the spatial data formats for import and export services:</p>
+<ul style="box-sizing:border-box;margin-top:0px;margin-bottom:10px;">
+    <li style="box-sizing:border-box;">Well-known text – It is maintained by the Open Geospatial Consortium and data is expressed in ASCII text. More information can be found at <a href="http://www.opengeospatial.org/standards/geopackage" style="box-sizing:border-box;background:transparent;color:rgb(11, 86, 166);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;">www.opengeospatial.org/standards/geopackage</a>. </li>
+    <li style="box-sizing:border-box;">Well-known binary – It is maintained by the Open Geospatial Consortium and data is expressed in binary streams. More information can be found at <a href="http://www.opengeospatial.org/standards/geopackage" style="box-sizing:border-box;background:transparent;color:rgb(11, 86, 166);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;">www.opengeospatial.org/standards/geopackage</a>. </li>
+    <li style="box-sizing:border-box;">ESRI shapefiles – A shapefile is a digital vector storage format for storing geometric location and associated attribute information. It is developed and regulated by ESRI. More details can be found at <a href="http://www.esri.com/library/whitepapers/pdfs/shapefile.pdf" style="box-sizing:border-box;background:transparent;color:rgb(11, 86, 166);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;">www.esri.com/library/whitepapers/pdfs/shapefile.pdf</a>. </li>
+    <li style="box-sizing:border-box;">GeoJSON – This is always an object (in JSON terms) and is used for encoding a variety of geographic data structures. Method ST_AsGeoJSON is used for converting SQL output to the GeoJSON format. More information can be found at <a href="http://www.geojson.org/geojson-spec.html" style="box-sizing:border-box;background:transparent;color:rgb(11, 86, 166);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;">www.geojson.org/geojson-spec.html</a>. </li>
+</ul>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">To upload the file to HANA, follow menu path File &gt; import to go to the Import screen shown in <strong style="box-sizing:border-box;font-weight:bold;">Figure 4</strong>. Select the type of file to be imported. In my example I selected ESRI Shapefiles. Click the Next button to go to the screen shown in <strong style="box-sizing:border-box;font-weight:bold;">Figure 5</strong>.</p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"> </p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"></p><div style="box-sizing:border-box;"><img src="HANAGeoSpatial_files/SPJ2014i04a14f4.gif" type="image/gif" height="553" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="521"/><br style="box-sizing:border-box;"/><div style="box-sizing:border-box;border-top-width:3px;border-top-style:solid;border-top-color:rgb(233, 170, 0);color:white;font-weight:bold;padding:2px 5px 5px;text-align:center;vertical-align:middle;width:5em;margin-top:10px;float:left;border-top-left-radius:10px;border-bottom-left-radius:10px;margin-bottom:10px;background-color:rgb(233, 170, 0);">Figure 4</div><div style="box-sizing:border-box;font-weight:bold;margin-top:10px;width:80%;margin-bottom:5px;border-top-width:1px;border-top-style:solid;border-top-color:rgb(233, 170, 0);float:left;"><span style="box-sizing:border-box;margin-top:3px;margin-left:10px;display:block;">Select the file type</span></div><div style="box-sizing:border-box;clear:both;"><span style="display:table;"> </span><span style="display:table;clear:both;"> </span></div></div><p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"></p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"> </p>
+<div style="box-sizing:border-box;"><img src="HANAGeoSpatial_files/SPJ2014i04a14f5.gif" type="image/gif" height="468" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="550"/><br style="box-sizing:border-box;"/><div style="box-sizing:border-box;border-top-width:3px;border-top-style:solid;border-top-color:rgb(233, 170, 0);color:white;font-weight:bold;padding:2px 5px 5px;text-align:center;vertical-align:middle;width:5em;margin-top:10px;float:left;border-top-left-radius:10px;border-bottom-left-radius:10px;margin-bottom:10px;background-color:rgb(233, 170, 0);">Figure 5</div><div style="box-sizing:border-box;font-weight:bold;margin-top:10px;width:80%;margin-bottom:5px;border-top-width:1px;border-top-style:solid;border-top-color:rgb(233, 170, 0);float:left;"><span style="box-sizing:border-box;margin-top:3px;margin-left:10px;display:block;">The HANA system</span></div><div style="box-sizing:border-box;clear:both;"><span style="display:table;"> </span><span style="display:table;clear:both;"> </span></div></div>
+<p style="box-sizing:border-box;margin:0in 0in 0.0001pt;font-family:Roboto, sans-serif;font-weight:400;"> </p>
+<p style="box-sizing:border-box;margin:0in 0in 0.0001pt;font-family:Roboto, sans-serif;font-weight:400;">Select the HANA system where you want the file to be imported from the matching items and click the Next button. There is only one system in my example.                   </p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">In the next screen (<strong style="box-sizing:border-box;font-weight:bold;">Figure 6</strong>) click the Browse button to select the location from which the file is to be imported. Click the Next button to go to the next screen (<strong style="box-sizing:border-box;font-weight:bold;">Figure 7</strong>). </p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"></p><div style="box-sizing:border-box;"><img src="HANAGeoSpatial_files/SPJ2014i04a14f6.gif" type="image/gif" height="470" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="550"/><br style="box-sizing:border-box;"/><div style="box-sizing:border-box;border-top-width:3px;border-top-style:solid;border-top-color:rgb(233, 170, 0);color:white;font-weight:bold;padding:2px 5px 5px;text-align:center;vertical-align:middle;width:5em;margin-top:10px;float:left;border-top-left-radius:10px;border-bottom-left-radius:10px;margin-bottom:10px;background-color:rgb(233, 170, 0);">Figure 6</div><div style="box-sizing:border-box;font-weight:bold;margin-top:10px;width:80%;margin-bottom:5px;border-top-width:1px;border-top-style:solid;border-top-color:rgb(233, 170, 0);float:left;"><span style="box-sizing:border-box;margin-top:3px;margin-left:10px;display:block;">File import location</span></div><div style="box-sizing:border-box;clear:both;"><span style="display:table;"> </span><span style="display:table;clear:both;"> </span></div></div><p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"></p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"> </p>
+<div style="box-sizing:border-box;"><img src="HANAGeoSpatial_files/SPJ2014i04a14f7.gif" type="image/gif" height="467" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="550"/><br style="box-sizing:border-box;"/><div style="box-sizing:border-box;border-top-width:3px;border-top-style:solid;border-top-color:rgb(233, 170, 0);color:white;font-weight:bold;padding:2px 5px 5px;text-align:center;vertical-align:middle;width:5em;margin-top:10px;float:left;border-top-left-radius:10px;border-bottom-left-radius:10px;margin-bottom:10px;background-color:rgb(233, 170, 0);">Figure 7</div><div style="box-sizing:border-box;font-weight:bold;margin-top:10px;width:80%;margin-bottom:5px;border-top-width:1px;border-top-style:solid;border-top-color:rgb(233, 170, 0);float:left;"><span style="box-sizing:border-box;margin-top:3px;margin-left:10px;display:block;">Schema details</span></div><div style="box-sizing:border-box;clear:both;"><span style="display:table;"> </span><span style="display:table;clear:both;"> </span></div></div>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">Enter the schema in the text box in <strong style="box-sizing:border-box;font-weight:bold;">Figure 7</strong> and click the Finish button. Once you enter the schema the Finish button becomes active. A schema is a collection of metadata that describes the relation in a database. It is a container of objects. In my example the schema is my employee ID so I have left it blank in the figure.The other fields, such as Replace existing tables, are used when you want to replace the existing table schema with the  new import schema. </p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">The data I imported is shown in <strong style="box-sizing:border-box;font-weight:bold;">Figure 8</strong>. The table has fields such as STATEFP, COUNTYRFP, and GEOID. A GEOID is a field in the table that shows the location coordinate. </p>
+<div style="box-sizing:border-box;"><img src="HANAGeoSpatial_files/SPJ2014i04a14f8.gif" type="image/gif" height="339" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="550"/><br style="box-sizing:border-box;"/><div style="box-sizing:border-box;border-top-width:3px;border-top-style:solid;border-top-color:rgb(233, 170, 0);color:white;font-weight:bold;padding:2px 5px 5px;text-align:center;vertical-align:middle;width:5em;margin-top:10px;float:left;border-top-left-radius:10px;border-bottom-left-radius:10px;margin-bottom:10px;background-color:rgb(233, 170, 0);">Figure 8</div><div style="box-sizing:border-box;font-weight:bold;margin-top:10px;width:80%;margin-bottom:5px;border-top-width:1px;border-top-style:solid;border-top-color:rgb(233, 170, 0);float:left;"><span style="box-sizing:border-box;margin-top:3px;margin-left:10px;display:block;">Spatial data preview</span></div><div style="box-sizing:border-box;clear:both;"><span style="display:table;"> </span><span style="display:table;clear:both;"> </span></div></div>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;text-indent:0.5in;"> </p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">The second method is to create a spatial table by a SQL query. You should have a geospatial data type field in the table to hold spatial data. The query shown in <strong style="box-sizing:border-box;font-weight:bold;">Figure 9</strong> creates a table with two columns in which the column location of type ST_point stores spatial data. I wrote an insert statement to insert the spatial data into the table. You can modify the SQL query according to your business scenarios. The data after the insert is shown in <strong style="box-sizing:border-box;font-weight:bold;">Figure 10</strong>.</p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">
+</p><div style="box-sizing:border-box;"><img src="HANAGeoSpatial_files/SPJ2014i04a14f9.gif" type="image/gif" height="132" style="box-sizing:border-box;border:0px;vertical-align:middle;height:132px;width:550px;" width="550"/><br style="box-sizing:border-box;"/><div style="box-sizing:border-box;border-top-width:3px;border-top-style:solid;border-top-color:rgb(233, 170, 0);color:white;font-weight:bold;padding:2px 5px 5px;text-align:center;vertical-align:middle;width:5em;margin-top:10px;float:left;border-top-left-radius:10px;border-bottom-left-radius:10px;margin-bottom:10px;background-color:rgb(233, 170, 0);">Figure 9</div><div style="box-sizing:border-box;font-weight:bold;margin-top:10px;width:80%;margin-bottom:5px;border-top-width:1px;border-top-style:solid;border-top-color:rgb(233, 170, 0);float:left;"><span style="box-sizing:border-box;margin-top:3px;margin-left:10px;display:block;">Geospatial query</span></div><div style="box-sizing:border-box;clear:both;"><span style="display:table;"> </span><span style="display:table;clear:both;"> </span></div></div><p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"></p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"> </p>
+<div style="box-sizing:border-box;"><img src="HANAGeoSpatial_files/SPJ2014i04a14f10.gif" type="image/gif" height="128" style="box-sizing:border-box;border:0px;vertical-align:middle;height:128px;width:549px;" width="549"/><br style="box-sizing:border-box;"/><div style="box-sizing:border-box;border-top-width:3px;border-top-style:solid;border-top-color:rgb(233, 170, 0);color:white;font-weight:bold;padding:2px 5px 5px;text-align:center;vertical-align:middle;width:5em;margin-top:10px;float:left;border-top-left-radius:10px;border-bottom-left-radius:10px;margin-bottom:10px;background-color:rgb(233, 170, 0);">Figure 10</div><div style="box-sizing:border-box;font-weight:bold;margin-top:10px;width:80%;margin-bottom:5px;border-top-width:1px;border-top-style:solid;border-top-color:rgb(233, 170, 0);float:left;"><span style="box-sizing:border-box;margin-top:3px;margin-left:10px;display:block;">Data in the table after the insert</span></div><div style="box-sizing:border-box;clear:both;"><span style="display:table;"> </span><span style="display:table;clear:both;"> </span></div></div>
+<h2 style="box-sizing:border-box;font-family:Roboto, sans-serif;font-weight:700;line-height:1.1;color:rgb(0, 0, 0);margin-top:20px;margin-bottom:10px;font-size:1.8em;"><strong style="box-sizing:border-box;font-weight:bold;">Step 3. Create Extended Services to Expose HANA Spatial Data </strong></h2>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">I have created XSJS service to access the geospatial data. The XS server accepts the HTTP request from the browser and maps it to database queries and procedure calls. The main logic (which is performance intensive) remains in SQL script procedures or views, whereas XS works as a smaller server in the middle, as shown in <strong style="box-sizing:border-box;font-weight:bold;">Figure 11</strong>. The XSIS service provides basic functionality such as validation logic. </p>
+<div style="box-sizing:border-box;"><img src="HANAGeoSpatial_files/SPJ2014i04a14f11.gif" type="image/gif" height="445" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="350"/><br style="box-sizing:border-box;"/><div style="box-sizing:border-box;border-top-width:3px;border-top-style:solid;border-top-color:rgb(233, 170, 0);color:white;font-weight:bold;padding:2px 5px 5px;text-align:center;vertical-align:middle;width:5em;margin-top:10px;float:left;border-top-left-radius:10px;border-bottom-left-radius:10px;margin-bottom:10px;background-color:rgb(233, 170, 0);">Figure 11</div><div style="box-sizing:border-box;font-weight:bold;margin-top:10px;width:80%;margin-bottom:5px;border-top-width:1px;border-top-style:solid;border-top-color:rgb(233, 170, 0);float:left;"><span style="box-sizing:border-box;margin-top:3px;margin-left:10px;display:block;">A flow diagram for my example</span></div><div style="box-sizing:border-box;clear:both;"><span style="display:table;"> </span><span style="display:table;clear:both;"> </span></div></div>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"> </p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">With XS you can create an application that runs on SAP HANA without additional external servers. When you are building a new application from start, it makes sense to consider using XS.</p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">In my example I have taken the data from HANA in GeoJson format and then shown it on a map. GeoJson, a subset of the JSON standard, is used to encode geographic information. It supports the following geometry types:</p>
+<ul style="box-sizing:border-box;margin-top:0px;margin-bottom:10px;">
+    <li style="box-sizing:border-box;">Point</li>
+    <li style="box-sizing:border-box;">Multipoint</li>
+    <li style="box-sizing:border-box;">Linestring</li>
+    <li style="box-sizing:border-box;">Multilinestring</li>
+    <li style="box-sizing:border-box;">Polygon</li>
+    <li style="box-sizing:border-box;">Multipolygon</li>
+</ul>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">Geospatial HANA provides a lot of methods for processing spatial data. I have used method ST_AsGeoJSON as it returns a string representing a geometry in JSON format.</p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">XSJS supports server-side application programming in JavaScript. The server application exposes authorized data for consumption at a client GUI such as a web browser. The steps to create server-side code in HANA Studio are as follows.</p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">Create an application descriptor file. The application descriptor is the core file that you use to describe an application’s availability within XS. Follow menu path File &gt; New &gt; Other to go to <strong style="box-sizing:border-box;font-weight:bold;">Figure 12</strong>. Select XS Application Descriptor File and click the Next button to go to <strong style="box-sizing:border-box;font-weight:bold;">Figure 13</strong>.</p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"></p><div style="box-sizing:border-box;"><img src="HANAGeoSpatial_files/SPJ2014i04a14f12.gif" type="image/gif" height="482" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="516"/><br style="box-sizing:border-box;"/><div style="box-sizing:border-box;border-top-width:3px;border-top-style:solid;border-top-color:rgb(233, 170, 0);color:white;font-weight:bold;padding:2px 5px 5px;text-align:center;vertical-align:middle;width:5em;margin-top:10px;float:left;border-top-left-radius:10px;border-bottom-left-radius:10px;margin-bottom:10px;background-color:rgb(233, 170, 0);">Figure 12</div><div style="box-sizing:border-box;font-weight:bold;margin-top:10px;width:80%;margin-bottom:5px;border-top-width:1px;border-top-style:solid;border-top-color:rgb(233, 170, 0);float:left;"><span style="box-sizing:border-box;margin-top:3px;margin-left:10px;display:block;">Type of project</span></div><div style="box-sizing:border-box;clear:both;"><span style="display:table;"> </span><span style="display:table;clear:both;"> </span></div></div><p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"></p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"> </p>
+<div style="box-sizing:border-box;"><img src="HANAGeoSpatial_files/SPJ2014i04a14f13.gif" type="image/gif" height="570" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="518"/><br style="box-sizing:border-box;"/><div style="box-sizing:border-box;border-top-width:3px;border-top-style:solid;border-top-color:rgb(233, 170, 0);color:white;font-weight:bold;padding:2px 5px 5px;text-align:center;vertical-align:middle;width:5em;margin-top:10px;float:left;border-top-left-radius:10px;border-bottom-left-radius:10px;margin-bottom:10px;background-color:rgb(233, 170, 0);">Figure 13</div><div style="box-sizing:border-box;font-weight:bold;margin-top:10px;width:80%;margin-bottom:5px;border-top-width:1px;border-top-style:solid;border-top-color:rgb(233, 170, 0);float:left;"><span style="box-sizing:border-box;margin-top:3px;margin-left:10px;display:block;">Select the HANA project</span></div><div style="box-sizing:border-box;clear:both;"><span style="display:table;"> </span><span style="display:table;clear:both;"> </span></div></div>
+<p style="box-sizing:border-box;margin:0in 0in 0.0001pt;font-family:Roboto, sans-serif;font-weight:400;"> </p>
+<p style="box-sizing:border-box;margin:0in 0in 0.0001pt;font-family:Roboto, sans-serif;font-weight:400;">The application descriptor file has no contents and no name. It only has the file extension .xsapp. Click the Finish button.</p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">Create an application access file. This file is placed in the package to which you want to grant access. To create the file follow menu path File &gt; New &gt; Other to go to <strong style="box-sizing:border-box;font-weight:bold;">Figure 14</strong>. Click the XS Application Access File option and then the Next button to go to <strong style="box-sizing:border-box;font-weight:bold;">Figure 15</strong>.</p>
+<div style="box-sizing:border-box;"><img src="HANAGeoSpatial_files/SPJ2014i04a14f14.gif" type="image/gif" height="490" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="516"/><br style="box-sizing:border-box;"/><div style="box-sizing:border-box;border-top-width:3px;border-top-style:solid;border-top-color:rgb(233, 170, 0);color:white;font-weight:bold;padding:2px 5px 5px;text-align:center;vertical-align:middle;width:5em;margin-top:10px;float:left;border-top-left-radius:10px;border-bottom-left-radius:10px;margin-bottom:10px;background-color:rgb(233, 170, 0);">Figure 14</div><div style="box-sizing:border-box;font-weight:bold;margin-top:10px;width:80%;margin-bottom:5px;border-top-width:1px;border-top-style:solid;border-top-color:rgb(233, 170, 0);float:left;"><span style="box-sizing:border-box;margin-top:3px;margin-left:10px;display:block;">File type</span></div><div style="box-sizing:border-box;clear:both;"><span style="display:table;"> </span><span style="display:table;clear:both;"> </span></div></div>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"> </p>
+<div style="box-sizing:border-box;"><img src="HANAGeoSpatial_files/SPJ2014i04a14f15.gif" type="image/gif" height="612" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="528"/><br style="box-sizing:border-box;"/><div style="box-sizing:border-box;border-top-width:3px;border-top-style:solid;border-top-color:rgb(233, 170, 0);color:white;font-weight:bold;padding:2px 5px 5px;text-align:center;vertical-align:middle;width:5em;margin-top:10px;float:left;border-top-left-radius:10px;border-bottom-left-radius:10px;margin-bottom:10px;background-color:rgb(233, 170, 0);">Figure 15</div><div style="box-sizing:border-box;font-weight:bold;margin-top:10px;width:80%;margin-bottom:5px;border-top-width:1px;border-top-style:solid;border-top-color:rgb(233, 170, 0);float:left;"><span style="box-sizing:border-box;margin-top:3px;margin-left:10px;display:block;">Select the project</span></div><div style="box-sizing:border-box;clear:both;"><span style="display:table;"> </span><span style="display:table;clear:both;"> </span></div></div>
+<p style="box-sizing:border-box;margin:0in 0in 0.0001pt;font-family:Roboto, sans-serif;font-weight:400;"> </p>
+<p style="box-sizing:border-box;margin:0in 0in 0.0001pt;font-family:Roboto, sans-serif;font-weight:400;">The parent folder is where you want to put the access file from the list of folders shown in <strong style="box-sizing:border-box;font-weight:bold;">Figure 15</strong>. The rules defined in the .xsaccess file apply to the package it resides in as well as any subpackages lower in the package hierarchy. The parent folder in my example (GIS_HANA_JN)  is shown in <strong style="box-sizing:border-box;font-weight:bold;">Figure 15</strong>. Select the parent folder and click the Finish button.</p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">You need to write the code shown in <strong style="box-sizing:border-box;font-weight:bold;">Figure 16</strong> in the application access file. It tells about the authentication mechanism to access the application. In my example I used basic authentication.</p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"> </p>
+<div style="box-sizing:border-box;"><img src="HANAGeoSpatial_files/SPJ2014i04a14f16.gif" type="image/gif" height="157" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="550"/><br style="box-sizing:border-box;"/><div style="box-sizing:border-box;border-top-width:3px;border-top-style:solid;border-top-color:rgb(233, 170, 0);color:white;font-weight:bold;padding:2px 5px 5px;text-align:center;vertical-align:middle;width:5em;margin-top:10px;float:left;border-top-left-radius:10px;border-bottom-left-radius:10px;margin-bottom:10px;background-color:rgb(233, 170, 0);">Figure 16</div><div style="box-sizing:border-box;font-weight:bold;margin-top:10px;width:80%;margin-bottom:5px;border-top-width:1px;border-top-style:solid;border-top-color:rgb(233, 170, 0);float:left;"><span style="box-sizing:border-box;margin-top:3px;margin-left:10px;display:block;">Code in access file</span></div><div style="box-sizing:border-box;clear:both;"><span style="display:table;"> </span><span style="display:table;clear:both;"> </span></div></div>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"> </p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">Next, you create the .xsjs file to write the code to fetch the data from HANA. Follow menu path File &gt; New &gt; File to go to <strong style="box-sizing:border-box;font-weight:bold;">Figure 17</strong>. Enter the file name (e.g., Expose_Spatial_Data.xsjs) and click the Finish button. </p>
+<div style="box-sizing:border-box;"><img src="HANAGeoSpatial_files/SPJ2014i04a14f17.gif" type="image/gif" height="609" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="524"/><br style="box-sizing:border-box;"/><div style="box-sizing:border-box;border-top-width:3px;border-top-style:solid;border-top-color:rgb(233, 170, 0);color:white;font-weight:bold;padding:2px 5px 5px;text-align:center;vertical-align:middle;width:5em;margin-top:10px;float:left;border-top-left-radius:10px;border-bottom-left-radius:10px;margin-bottom:10px;background-color:rgb(233, 170, 0);">Figure 17</div><div style="box-sizing:border-box;font-weight:bold;margin-top:10px;width:80%;margin-bottom:5px;border-top-width:1px;border-top-style:solid;border-top-color:rgb(233, 170, 0);float:left;"><span style="box-sizing:border-box;margin-top:3px;margin-left:10px;display:block;">File name and HANA project</span></div><div style="box-sizing:border-box;clear:both;"><span style="display:table;"> </span><span style="display:table;clear:both;"> </span></div></div>
+<p style="box-sizing:border-box;margin:0in 0in 0.0001pt 71.25pt;font-family:Roboto, sans-serif;font-weight:400;"> </p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">Double-click the file name Expose_Spatial_Data in Project Explorer to go to <strong style="box-sizing:border-box;font-weight:bold;">Figure 18</strong>. The code in <strong style="box-sizing:border-box;font-weight:bold;">Figure 18</strong> is executed when HANA handles a URL request. It fetches the spatial data from HANA and is called from an Ajax Query.</p>
+<div style="box-sizing:border-box;"><img src="HANAGeoSpatial_files/SPJ2014i04a14f18.gif" type="image/gif" height="392" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="550"/><br style="box-sizing:border-box;"/><div style="box-sizing:border-box;border-top-width:3px;border-top-style:solid;border-top-color:rgb(233, 170, 0);color:white;font-weight:bold;padding:2px 5px 5px;text-align:center;vertical-align:middle;width:5em;margin-top:10px;float:left;border-top-left-radius:10px;border-bottom-left-radius:10px;margin-bottom:10px;background-color:rgb(233, 170, 0);">Figure 18</div><div style="box-sizing:border-box;font-weight:bold;margin-top:10px;width:80%;margin-bottom:5px;border-top-width:1px;border-top-style:solid;border-top-color:rgb(233, 170, 0);float:left;"><span style="box-sizing:border-box;margin-top:3px;margin-left:10px;display:block;">Geospatial query and XS code</span></div><div style="box-sizing:border-box;clear:both;"><span style="display:table;"> </span><span style="display:table;clear:both;"> </span></div></div>
+<h2 style="box-sizing:border-box;font-family:Roboto, sans-serif;font-weight:700;line-height:1.1;color:rgb(0, 0, 0);margin-top:20px;margin-bottom:10px;font-size:1.8em;"><strong style="box-sizing:border-box;font-weight:bold;">Step 4. Consume Extended Services on a Web Browser to Display Spatial Data</strong></h2>
+Now you have to follow three steps to write the code to show spatial data on maps by creating one HTML file (index.html) and another JavaScript file (map.js). Follow menu path File &gt; New &gt; File for creating the files. Afterward, follow these steps:
+<ol style="box-sizing:border-box;margin-top:0px;margin-bottom:10px;">
+    <li style="box-sizing:border-box;">Initialize the leaflet</li>
+    <li style="box-sizing:border-box;">Initialize the map</li>
+    <li style="box-sizing:border-box;">Consume the extended services created in step 3 on the UI</li>
+</ol>
+<h3 style="box-sizing:border-box;font-family:Roboto, sans-serif;font-weight:700;line-height:1.1;color:rgb(0, 0, 0);margin-top:20px;margin-bottom:10px;font-size:1.5em;"><strong style="box-sizing:border-box;font-weight:bold;">Initialize the Leaflet</strong></h3>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">
+Leaflet is a modern open-source JavaScript library for mobile-friendly interactive maps. It is designed with simplicity, performance, and usability in mind. It works efficiently across all major desktop and mobile platforms out of the box, taking advantage of HTML5 and Cascading Style Sheets (CSS) 3 on modern browsers while still being accessible on older ones. Follow these steps to access the maps.</p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">I created a file index.html for which I wrote code by using the following steps. The file is called from the browser URL. Include a leaflet CSS file in the head section of your document by writing the code in <strong style="box-sizing:border-box;font-weight:bold;">Figure 19</strong> in index.html.</p>
+<div style="box-sizing:border-box;"><img src="HANAGeoSpatial_files/SPJ2014i04a14f19.gif" type="image/gif" height="56" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="532"/><br style="box-sizing:border-box;"/><div style="box-sizing:border-box;border-top-width:3px;border-top-style:solid;border-top-color:rgb(233, 170, 0);color:white;font-weight:bold;padding:2px 5px 5px;text-align:center;vertical-align:middle;width:5em;margin-top:10px;float:left;border-top-left-radius:10px;border-bottom-left-radius:10px;margin-bottom:10px;background-color:rgb(233, 170, 0);">Figure 19</div><div style="box-sizing:border-box;font-weight:bold;margin-top:10px;width:80%;margin-bottom:5px;border-top-width:1px;border-top-style:solid;border-top-color:rgb(233, 170, 0);float:left;"><span style="box-sizing:border-box;margin-top:3px;margin-left:10px;display:block;">CSS of the leaflet</span></div><div style="box-sizing:border-box;clear:both;"><span style="display:table;"> </span><span style="display:table;clear:both;"> </span></div></div>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">Include a leaflet JavaScript file by writing the code in <strong style="box-sizing:border-box;font-weight:bold;">Figure 20</strong> in index.html.</p>
+<div style="box-sizing:border-box;"><img src="HANAGeoSpatial_files/SPJ2014i04a14f20.gif" type="image/gif" height="29" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="534"/><br style="box-sizing:border-box;"/><div style="box-sizing:border-box;border-top-width:3px;border-top-style:solid;border-top-color:rgb(233, 170, 0);color:white;font-weight:bold;padding:2px 5px 5px;text-align:center;vertical-align:middle;width:5em;margin-top:10px;float:left;border-top-left-radius:10px;border-bottom-left-radius:10px;margin-bottom:10px;background-color:rgb(233, 170, 0);">Figure 20</div><div style="box-sizing:border-box;font-weight:bold;margin-top:10px;width:80%;margin-bottom:5px;border-top-width:1px;border-top-style:solid;border-top-color:rgb(233, 170, 0);float:left;"><span style="box-sizing:border-box;margin-top:3px;margin-left:10px;display:block;">JavaScript file of the leaflet</span></div><div style="box-sizing:border-box;clear:both;"><span style="display:table;"> </span><span style="display:table;clear:both;"> </span></div></div>
+<p style="box-sizing:border-box;margin:0in 0in 0.0001pt 0.75in;font-family:Roboto, sans-serif;font-weight:400;"> </p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">Put a <code style="box-sizing:border-box;font-family:Menlo, Monaco, Consolas, 'Courier New', monospace;font-size:90%;padding:2px 4px;color:rgb(199, 37, 78);white-space:nowrap;border-radius:4px;background-color:rgb(249, 242, 244);">div</code> element with a certain <code style="box-sizing:border-box;font-family:Menlo, Monaco, Consolas, 'Courier New', monospace;font-size:90%;padding:2px 4px;color:rgb(199, 37, 78);white-space:nowrap;border-radius:4px;background-color:rgb(249, 242, 244);">id</code> where you want your map to be by using the code in <strong style="box-sizing:border-box;font-weight:bold;">Figure 21</strong>.</p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"> </p>
+<div style="box-sizing:border-box;"><img src="HANAGeoSpatial_files/SPJ2014i04a14f21.gif" type="image/gif" height="33" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="218"/><br style="box-sizing:border-box;"/><div style="box-sizing:border-box;border-top-width:3px;border-top-style:solid;border-top-color:rgb(233, 170, 0);color:white;font-weight:bold;padding:2px 5px 5px;text-align:center;vertical-align:middle;width:5em;margin-top:10px;float:left;border-top-left-radius:10px;border-bottom-left-radius:10px;margin-bottom:10px;background-color:rgb(233, 170, 0);">Figure 21</div><div style="box-sizing:border-box;font-weight:bold;margin-top:10px;width:80%;margin-bottom:5px;border-top-width:1px;border-top-style:solid;border-top-color:rgb(233, 170, 0);float:left;"><span style="box-sizing:border-box;margin-top:3px;margin-left:10px;display:block;">Division tag</span></div><div style="box-sizing:border-box;clear:both;"><span style="display:table;"> </span><span style="display:table;clear:both;"> </span></div></div>
+<p style="box-sizing:border-box;margin:0in 0in 0.0001pt 0.75in;font-family:Roboto, sans-serif;font-weight:400;"> </p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">Make sure the map container has a defined height, for example, by setting it in CSS as shown in <strong style="box-sizing:border-box;font-weight:bold;">Figure 22</strong>.</p>
+<div style="box-sizing:border-box;"><img src="HANAGeoSpatial_files/SPJ2014i04a14f22.gif" type="image/gif" height="54" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="358"/><br style="box-sizing:border-box;"/><div style="box-sizing:border-box;border-top-width:3px;border-top-style:solid;border-top-color:rgb(233, 170, 0);color:white;font-weight:bold;padding:2px 5px 5px;text-align:center;vertical-align:middle;width:5em;margin-top:10px;float:left;border-top-left-radius:10px;border-bottom-left-radius:10px;margin-bottom:10px;background-color:rgb(233, 170, 0);">Figure 22</div><div style="box-sizing:border-box;font-weight:bold;margin-top:10px;width:80%;margin-bottom:5px;border-top-width:1px;border-top-style:solid;border-top-color:rgb(233, 170, 0);float:left;"><span style="box-sizing:border-box;margin-top:3px;margin-left:10px;display:block;">Define the height</span></div><div style="box-sizing:border-box;clear:both;"><span style="display:table;"> </span><span style="display:table;clear:both;"> </span></div></div>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">More details on the above steps can be found at the <a href="http://leafletjs.com/" style="box-sizing:border-box;background:transparent;color:rgb(11, 86, 166);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;">leaflet</a> website. </p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">The index.html (<strong style="box-sizing:border-box;font-weight:bold;">Figure 23</strong>)<strong style="box-sizing:border-box;font-weight:bold;"> </strong>calls the map.js, which further calls the Ajax services and initializes the map. Select index.html from project explorer and click run as a Web App Preview to run the code in Index.html. It launches a browser in the new tab of HANA Studio.</p>
+<div style="box-sizing:border-box;"><img src="HANAGeoSpatial_files/SPJ2014i04a14f23.gif" type="image/gif" height="541" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="550"/><br style="box-sizing:border-box;"/><div style="box-sizing:border-box;border-top-width:3px;border-top-style:solid;border-top-color:rgb(233, 170, 0);color:white;font-weight:bold;padding:2px 5px 5px;text-align:center;vertical-align:middle;width:5em;margin-top:10px;float:left;border-top-left-radius:10px;border-bottom-left-radius:10px;margin-bottom:10px;background-color:rgb(233, 170, 0);">Figure 23</div><div style="box-sizing:border-box;font-weight:bold;margin-top:10px;width:80%;margin-bottom:5px;border-top-width:1px;border-top-style:solid;border-top-color:rgb(233, 170, 0);float:left;"><span style="box-sizing:border-box;margin-top:3px;margin-left:10px;display:block;">Index.html code called from the URL</span></div><div style="box-sizing:border-box;clear:both;"><span style="display:table;"> </span><span style="display:table;clear:both;"> </span></div></div>
+<h3 style="box-sizing:border-box;font-family:Roboto, sans-serif;font-weight:700;line-height:1.1;color:rgb(0, 0, 0);margin-top:20px;margin-bottom:10px;font-size:1.5em;"><strong style="box-sizing:border-box;font-weight:bold;">Initialize the Map</strong></h3>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">In this step you call up a blank map <strong style="box-sizing:border-box;font-weight:bold;">(Figure 24</strong>) without the location points. </p>
+<div style="box-sizing:border-box;"><img src="HANAGeoSpatial_files/SPJ2014i04a14f24.gif" type="image/gif" height="353" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="550"/><br style="box-sizing:border-box;"/><div style="box-sizing:border-box;border-top-width:3px;border-top-style:solid;border-top-color:rgb(233, 170, 0);color:white;font-weight:bold;padding:2px 5px 5px;text-align:center;vertical-align:middle;width:5em;margin-top:10px;float:left;border-top-left-radius:10px;border-bottom-left-radius:10px;margin-bottom:10px;background-color:rgb(233, 170, 0);">Figure 24</div><div style="box-sizing:border-box;font-weight:bold;margin-top:10px;width:80%;margin-bottom:5px;border-top-width:1px;border-top-style:solid;border-top-color:rgb(233, 170, 0);float:left;"><span style="box-sizing:border-box;margin-top:3px;margin-left:10px;display:block;">The initial map</span></div><div style="box-sizing:border-box;clear:both;"><span style="display:table;"> </span><span style="display:table;clear:both;"> </span></div></div>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"> </p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">First, I initialize the map, set its view to my geographical coordinates, and set a zoom level with the code in <strong style="box-sizing:border-box;font-weight:bold;">Figure 25</strong>. </p>
+<div style="box-sizing:border-box;"><img src="HANAGeoSpatial_files/SPJ2014i04a14f25.gif" type="image/gif" height="38" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="550"/><br style="box-sizing:border-box;"/><div style="box-sizing:border-box;border-top-width:3px;border-top-style:solid;border-top-color:rgb(233, 170, 0);color:white;font-weight:bold;padding:2px 5px 5px;text-align:center;vertical-align:middle;width:5em;margin-top:10px;float:left;border-top-left-radius:10px;border-bottom-left-radius:10px;margin-bottom:10px;background-color:rgb(233, 170, 0);">Figure 25</div><div style="box-sizing:border-box;font-weight:bold;margin-top:10px;width:80%;margin-bottom:5px;border-top-width:1px;border-top-style:solid;border-top-color:rgb(233, 170, 0);float:left;"><span style="box-sizing:border-box;margin-top:3px;margin-left:10px;display:block;">Map setup code</span></div><div style="box-sizing:border-box;clear:both;"><span style="display:table;"> </span><span style="display:table;clear:both;"> </span></div></div>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">The coordinates 28.188, -51.196 set the map view to the US so that the location points are visible. The next steps are to add a tile layer to the map. (The tile layer is the map image that comes from the mapbox.) You write the URL template for the tile images as shown in <strong style="box-sizing:border-box;font-weight:bold;">Figure 26</strong> of map.js. There are many providers, such as Mapbox and CloudMade. </p>
+<div style="box-sizing:border-box;"><img src="HANAGeoSpatial_files/SPJ2014i04a14f26.gif" type="image/gif" height="125" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="550"/><br style="box-sizing:border-box;"/><div style="box-sizing:border-box;border-top-width:3px;border-top-style:solid;border-top-color:rgb(233, 170, 0);color:white;font-weight:bold;padding:2px 5px 5px;text-align:center;vertical-align:middle;width:5em;margin-top:10px;float:left;border-top-left-radius:10px;border-bottom-left-radius:10px;margin-bottom:10px;background-color:rgb(233, 170, 0);">Figure 26</div><div style="box-sizing:border-box;font-weight:bold;margin-top:10px;width:80%;margin-bottom:5px;border-top-width:1px;border-top-style:solid;border-top-color:rgb(233, 170, 0);float:left;"><span style="box-sizing:border-box;margin-top:3px;margin-left:10px;display:block;">Tile layer code in map.js</span></div><div style="box-sizing:border-box;clear:both;"><span style="display:table;"> </span><span style="display:table;clear:both;"> </span></div></div>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">Creating a tile layer usually involves setting the URL template for the tile images, the attribution text, and the maximum zoom level of the layer. There are many reasons for using Mapbox, but the main one is that it is free. The process is as follows:</p>
+<ol style="box-sizing:border-box;margin-top:0px;margin-bottom:10px;">
+    <li style="box-sizing:border-box;">Sign up on Mapbox</li>
+    <li style="box-sizing:border-box;">Create a tile map </li>
+</ol>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">You receive an ID once the map is created. You enter the ID in the URL where you see the blue line in <strong style="box-sizing:border-box;font-weight:bold;">Figure 26</strong>.</p>
+<h3 style="box-sizing:border-box;font-family:Roboto, sans-serif;font-weight:700;line-height:1.1;color:rgb(0, 0, 0);margin-top:20px;margin-bottom:10px;font-size:1.5em;"><strong style="box-sizing:border-box;font-weight:bold;">Consume Extended Services Created in Step 3 on the UI</strong></h3>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">
+I have used Ajax to consume XSJS as shown in <strong style="box-sizing:border-box;font-weight:bold;">Figure 27</strong>. The code calls the XSJS that fetches the spatial data from HANA. The data is then shown on the map.</p>
+<div style="box-sizing:border-box;"><img src="HANAGeoSpatial_files/SPJ2014i04a14f27.gif" type="image/gif" height="154" style="box-sizing:border-box;border:0px;vertical-align:middle;height:154px;width:550px;" width="550"/><br style="box-sizing:border-box;"/><div style="box-sizing:border-box;border-top-width:3px;border-top-style:solid;border-top-color:rgb(233, 170, 0);color:white;font-weight:bold;padding:2px 5px 5px;text-align:center;vertical-align:middle;width:5em;margin-top:10px;float:left;border-top-left-radius:10px;border-bottom-left-radius:10px;margin-bottom:10px;background-color:rgb(233, 170, 0);">Figure 27</div><div style="box-sizing:border-box;font-weight:bold;margin-top:10px;width:80%;margin-bottom:5px;border-top-width:1px;border-top-style:solid;border-top-color:rgb(233, 170, 0);float:left;"><span style="box-sizing:border-box;margin-top:3px;margin-left:10px;display:block;">Ajax code</span></div><div style="box-sizing:border-box;clear:both;"><span style="display:table;"> </span><span style="display:table;clear:both;"> </span></div></div>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"> </p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">Now the application is up and can be viewed on the local host.</p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">The spatial file I uploaded has five different locations of the US that are now visible on a geospatial graph as shown in <strong style="box-sizing:border-box;font-weight:bold;">Figure 28</strong>. Similarly, you can upload the business data and analyze it.</p>
+<div style="box-sizing:border-box;"><img src="HANAGeoSpatial_files/SPJ2014i04a14f28.gif" type="image/gif" height="322" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="550"/><br style="box-sizing:border-box;"/><div style="box-sizing:border-box;border-top-width:3px;border-top-style:solid;border-top-color:rgb(233, 170, 0);color:white;font-weight:bold;padding:2px 5px 5px;text-align:center;vertical-align:middle;width:5em;margin-top:10px;float:left;border-top-left-radius:10px;border-bottom-left-radius:10px;margin-bottom:10px;background-color:rgb(233, 170, 0);">Figure 28</div><div style="box-sizing:border-box;font-weight:bold;margin-top:10px;width:80%;margin-bottom:5px;border-top-width:1px;border-top-style:solid;border-top-color:rgb(233, 170, 0);float:left;"><span style="box-sizing:border-box;margin-top:3px;margin-left:10px;display:block;">Spatial data on the web</span></div><div style="box-sizing:border-box;clear:both;"><span style="display:table;"> </span><span style="display:table;clear:both;"> </span></div></div>
+
+    
+
+    <div style="box-sizing:border-box;clear:both;"><span style="display:table;"> </span><span style="display:table;clear:both;"> </span></div>
+  <div style="box-sizing:border-box;position:relative;min-height:1px;padding-right:15px;padding-left:15px;float:left;width:100%;margin-right:0%;margin-top:20px;">
+    
+    <div style="box-sizing:border-box;position:relative;min-height:1px;padding-right:15px;padding-left:15px;float:left;width:16.6666666666667%;"><span style="box-sizing:border-box;float:right;"><img src="HANAGeoSpatial_files/Kumar-Akash_100x125.gif" type="image/gif" height="125" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="100"/></span></div>
+
+    
+
+    
+    <div style="box-sizing:border-box;">
+        <h3 style="box-sizing:border-box;font-family:Roboto, sans-serif;font-weight:bold;line-height:1.1;color:rgb(0, 0, 0);margin-top:0px;margin-bottom:10px;font-size:1.5em;">Akash Kumar</h3>
+        <p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">Akash Kumar is an SAP technical consultant specializing in ABAP and HANA. He has 5+ years of experience in design and development of products with corporate organizations such as TCS, RBS, and SAP Labs. He is an active speaker and has organized multiple BarCamps in Delhi, India. He holds a bachelor of technology degree in computer science. He holds a certification in SAP HANA.</p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"> </p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"></p>
+        
+        <p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"><a href="http://sapexperts.wispubs.com/SAP-Professional-Journal/search?q=Akash+Kumar&amp;exact=1" style="box-sizing:border-box;background:transparent;color:rgb(11, 86, 166);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;">See more by this author</a></p>
+        
+        <p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">
+              You may contact the author at <span style="box-sizing:border-box;"><a href="http://sapexperts.wispubs.com/SAP-Professional-Journal/Articles/How-to-Use-HANA-s-Geospatial-Capabilities?id=E9ECB74A143142899904816A772EA5B2mailto:akashkumar1987@gmail.com?cc=editor@sappro.com" style="box-sizing:border-box;background:transparent;color:rgb(11, 86, 166);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;">akashkumar1987@gmail.com</a></span>. 
+				   </p>
+            
+                <p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">If you have comments about this article or publication, or would like to submit an article idea, please contact the <span style="box-sizing:border-box;"><a href="http://sapexperts.wispubs.com/SAP-Professional-Journal/Articles/How-to-Use-HANA-s-Geospatial-Capabilities?id=E9ECB74A143142899904816A772EA5B2mailto:editor@sappro.com" style="box-sizing:border-box;background:transparent;color:rgb(11, 86, 166);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;">editor</a></span>.</p>
+            
+        
+    </div>
+    <div style="box-sizing:border-box;clear:both;"><span style="display:table;"> </span><span style="display:table;clear:both;"> </span></div>
+    
+</div>
+
+    </div>
+
+
+
+
+<a name="comments" style="box-sizing:border-box;background:transparent;color:rgb(11, 86, 166);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;"></a>
+<div style="box-sizing:border-box;">
+    
+        <hr style="box-sizing:content-box;height:0px;margin-top:20px;margin-bottom:20px;border-width:1px 0px 0px;border-top-style:solid;border-top-color:rgb(204, 204, 204);width:98%;border-top-width:1px;"/>
+        <h3 style="box-sizing:border-box;font-family:Roboto, sans-serif;font-weight:700;line-height:1.1;color:rgb(0, 0, 0);margin-top:20px;margin-bottom:10px;font-size:1.5em;">Comments</h3>
+        <p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">No comments have been submitted on this article. </p>
+            <hr style="box-sizing:content-box;height:0px;margin-top:20px;margin-bottom:20px;border-width:1px 0px 0px;border-top-style:solid;border-top-color:rgb(204, 204, 204);width:98%;border-top-width:1px;"/>
+        
+
+    
+
+    
+    
+        <h3 style="box-sizing:border-box;font-family:Roboto, sans-serif;font-weight:700;line-height:1.1;color:rgb(0, 0, 0);margin-top:20px;margin-bottom:10px;font-size:1.5em;">Submit a Comment</h3>
+        <p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;">Please keep comments civil and pertinent to the article you are commenting upon. SAP Experts reserves the right to edit or remove your comment.</p>
+
+        <div style="box-sizing:border-box;">
+            <span style="box-sizing:border-box;">Display Name</span>
+        </div>
+        <div style="box-sizing:border-box;">
+            <span style="box-sizing:border-box;">Comment</span> <span style="box-sizing:border-box;">*</span><br style="box-sizing:border-box;"/>
+            
+        </div>
+        
+
+        <div style="box-sizing:border-box;"><img name="phassetdetail_1$btnSubmitComment" src="" style="box-sizing:border-box;margin:0px;font-family:inherit;font-size:inherit;line-height:inherit;"></img></div>
+
+        
+    
+
+    
+</div>  
+                   </div>
+            </div>
+ 
+             <div style="box-sizing:border-box;position:relative;min-height:1px;padding-right:15px;padding-left:15px;float:left;width:25%;margin-top:-10px;">
+
+                    <div style="box-sizing:border-box;">
+	<div style="box-sizing:border-box;">
+		<h3 style="box-sizing:border-box;font-family:Roboto, sans-serif;font-weight:bold;line-height:1.1;color:rgb(0, 0, 0);margin-top:20px;margin-bottom:10px;font-size:1.5em;">
+			You may also like …
+		</h3>
+	</div><div style="box-sizing:border-box;">
+		<h5 style="box-sizing:border-box;font-family:Roboto, sans-serif;font-weight:700;line-height:1.3em;color:rgb(0, 0, 0);margin-top:10px;margin-bottom:10px;font-size:1em;">
+			<a href="http://sapexperts.wispubs.com/SAP-Professional-Journal/Articles/What-s-the-Next-Generation-in-SAP-Application-Development?id=B98995A8705848D3B3FD19B5B514CC31" style="box-sizing:border-box;background:transparent;color:rgb(11, 86, 166);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;"><div style="box-sizing:border-box;float:left;width:15%;"><img src="HANAGeoSpatial_files/article-icon.gif" type="image/gif" height="27" style="box-sizing:border-box;border:0px;vertical-align:middle;width:75%;" width="28"/></div><div style="box-sizing:border-box;float:left;width:60%;"><span style="box-sizing:border-box;color:#000;">What's the Next Generation in SAP Application Development?</span></div><div style="box-sizing:border-box;clear:both;"></div></a>
+		</h5>
+	</div>
+</div>
+
+
+
+
+
+<div style="box-sizing:border-box;position:relative;min-height:1px;padding-right:15px;padding-left:15px;float:left;width:100%;margin:10px 0px;background-color:rgb(222, 222, 222);">
+    <div style="box-sizing:border-box;margin:0px;"><span style="display:table;"> </span>
+
+          <div style="box-sizing:border-box;position:relative;min-height:1px;float:left;width:16.6666666666667%;padding:0px;margin-bottom:10px;">
+            <div style="box-sizing:border-box;margin-top:10px;"><img src="HANAGeoSpatial_files/Image [16].png" type="image/png" alt="Newsletter Icon" height="48" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="40"/></div>
+        </div>
+        
+         <div style="box-sizing:border-box;position:relative;min-height:1px;padding-right:15px;padding-left:15px;float:left;width:83.3333333333333%;">
+            <h2 style="box-sizing:border-box;font-family:Roboto, sans-serif;font-weight:300;line-height:1.1;color:rgb(0, 0, 0);margin-top:20px;margin-bottom:10px;font-size:1.5em;">Get new content alerts</h2>
+        </div>
+
+        <div style="box-sizing:border-box;color:red;"></div>
+        <div style="box-sizing:border-box;">
+          
+           
+
+                Sign up for the
+                SAP Professional Journal Newsletter
+               
+
+        
+               <a href="#" style="box-sizing:border-box;background:transparent;color:rgb(11, 86, 166);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;"> <strong style="box-sizing:border-box;font-weight:bold;color:black;">&gt;&gt;</strong>    </a>
+        </div>
+
+
+    <span style="display:table;clear:both;"> </span></div>
+</div>
+
+
+
+     
+   <div style="box-sizing:border-box;">
+        <a href="http://www.emissary.io/network/SAPExperts/#/" style="box-sizing:border-box;background:transparent;color:rgb(11, 86, 166);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;" target="_blank">
+            <img src="HANAGeoSpatial_files/Image [17].png" type="image/png" height="271" style="box-sizing:border-box;border:0px;vertical-align:middle;" width="263"/>
+            
+        </a>
+   </div>
+<div style="box-sizing:border-box;">
+	
+<div style="box-sizing:border-box;position:relative;min-height:1px;padding-right:15px;padding-left:15px;float:left;width:100%;margin:10px 0px;background-color:rgb(222, 222, 222);">
+    <div style="box-sizing:border-box;margin:0px;"><span style="display:table;"> </span>
+        <div style="box-sizing:border-box;position:relative;min-height:1px;float:left;width:16.6666666666667%;padding:0px;margin-bottom:10px;">
+           <div style="box-sizing:border-box;margin-top:15px;"><img src="HANAGeoSpatial_files/Image [18].png" type="image/png" height="20" style="box-sizing:border-box;border:0px;vertical-align:middle;height:20px;width:40px;" width="40"/></div>
+        </div>
+        <div style="box-sizing:border-box;position:relative;min-height:1px;padding-right:15px;padding-left:15px;float:left;width:83.3333333333333%;">
+            <h2 style="box-sizing:border-box;font-family:Roboto, sans-serif;font-weight:300;line-height:1.1;color:rgb(0, 0, 0);margin-top:20px;margin-bottom:10px;font-size:1.5em;">
+                Meet our content advisors
+           
+            </h2>
+        </div>
+        
+                <div style="box-sizing:border-box;margin:10px 0px 30px;"><span style="display:table;"> </span>
+                      <div style="box-sizing:border-box;position:relative;min-height:1px;float:left;width:100%;padding:0px;margin:0px;">
+                    <h3 style="box-sizing:border-box;font-family:Roboto, sans-serif;font-weight:300;line-height:1.1;color:rgb(11, 86, 166);margin-top:0px;margin-bottom:10px;font-size:1.5em;"> James Wood</h3>
+                         <img src="HANAGeoSpatial_files/Image [1].jpg" type="image/jpeg" height="125" style="box-sizing:border-box;border:0px;vertical-align:middle;float:left;margin-right:5px;" width="100"/>
+                         <p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"><a href="http://sapexperts.wispubs.com/Advisors/SAP-Professional-Journal-Advisors#James%20Wood" style="box-sizing:border-box;background:transparent;color:rgb(11, 86, 166);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;">
+                                 <span style="box-sizing:border-box;color:#000;">James Wood is the founder and principal consultant of Bowdark Consulting, Inc. He specializes in ABAP Objects, Java/J2EE, SAP NetWeaver Process Integration, and SAP NetWeaver Portal.</span>
+                            </a></p>
+    
+                        
+     
+
+                    </div>
+    <span style="display:table;clear:both;"> </span></div>
+    
+                <div style="box-sizing:border-box;margin:10px 0px 30px;"><span style="display:table;"> </span>
+                      <div style="box-sizing:border-box;position:relative;min-height:1px;float:left;width:100%;padding:0px;margin:0px;">
+                    <h3 style="box-sizing:border-box;font-family:Roboto, sans-serif;font-weight:300;line-height:1.1;color:rgb(11, 86, 166);margin-top:0px;margin-bottom:10px;font-size:1.5em;"> Kehinde Eseyin</h3>
+                         <img src="HANAGeoSpatial_files/Image [2].jpg" type="image/jpeg" height="125" style="box-sizing:border-box;border:0px;vertical-align:middle;float:left;margin-right:5px;" width="100"/>
+                         <p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"><a href="http://sapexperts.wispubs.com/Advisors/SAP-Professional-Journal-Advisors#Kehinde%20Eseyin" style="box-sizing:border-box;background:transparent;color:rgb(11, 86, 166);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;">
+                                 <span style="box-sizing:border-box;color:#000;">Kehinde Eseyin is a senior SAP security and GRC consultant with Turnkey Consulting (UK) Limited. He has more than eight years of SAP authorizations, GRC, and Basis experience.</span>
+                            </a></p>
+    
+                        
+     
+
+                    </div>
+    <span style="display:table;clear:both;"> </span></div>
+    
+                <div style="box-sizing:border-box;margin:10px 0px 30px;"><span style="display:table;"> </span>
+                      <div style="box-sizing:border-box;position:relative;min-height:1px;float:left;width:100%;padding:0px;margin:0px;">
+                    <h3 style="box-sizing:border-box;font-family:Roboto, sans-serif;font-weight:300;line-height:1.1;color:rgb(11, 86, 166);margin-top:0px;margin-bottom:10px;font-size:1.5em;"> Winni Hesel</h3>
+                         <img src="HANAGeoSpatial_files/Image [3].jpg" type="image/jpeg" height="125" style="box-sizing:border-box;border:0px;vertical-align:middle;float:left;margin-right:5px;" width="100"/>
+                         <p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"><a href="http://sapexperts.wispubs.com/Advisors/SAP-Professional-Journal-Advisors#Winni%20Hesel" style="box-sizing:border-box;background:transparent;color:rgb(11, 86, 166);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;">
+                                 <span style="box-sizing:border-box;color:#000;">Winni Hesel is a partner with Enowa Consulting and has more than 20 years’ experience as an SAP consultant, project manager, and program manager. Winni has completed over 50 SAP Solution Manager projects.</span>
+                            </a></p>
+    
+                        
+     
+
+                    </div>
+    <span style="display:table;clear:both;"> </span></div>
+    
+        <a href="http://sapexperts.wispubs.com/Advisors/SAP-Professional-Journal-Advisors" style="box-sizing:border-box;background:transparent;color:rgb(11, 86, 166);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;font-size:1.3em;padding-left:15px;float:right;">More &gt;&gt;</a>
+
+
+<span style="display:table;clear:both;"> </span></div>
+</div>
+ 
+</div>
+
+
+
+                    
+
+                </div>
+        <span style="display:table;clear:both;"> </span></div>
+                <div style="box-sizing:border-box;">
+
+                
+       
+    
+
+<div style="box-sizing:border-box;position:relative;min-height:1px;padding-right:15px;padding-left:15px;float:left;width:100%;">
+<div style="box-sizing:border-box;margin:50px 0px 10px;background-color:rgb(88, 88, 88);"><span style="display:table;"> </span>
+    
+ <div style="box-sizing:border-box;display:block;height:auto;max-width:100%;position:relative;min-height:1px;float:left;width:27%;padding:10px 0px 10px 15px;background-color:rgb(255, 255, 255);padding-left:0px;padding-right:0px;">
+    <img src="HANAGeoSpatial_files/Image [4].jpg" type="image/jpeg" height="34" style="box-sizing:border-box;border:0px;vertical-align:middle;display:block;height:auto;max-width:100%;margin:0px auto;" width="271"/>
+</div>
+<div style="box-sizing:border-box;position:relative;min-height:1px;padding-right:0px;padding-left:0px;float:left;width:66.6666666666667%;">
+    <ul style="box-sizing:border-box;list-style:none;color:rgb(255, 255, 255);padding:15px 0px 0px;margin:0px;">
+        <li style="box-sizing:border-box;display:inline;white-space:nowrap;margin:0px 15px;"><a href="http://sapexperts.wispubs.com/SAP-Professional-Journal/about-us" style="box-sizing:border-box;background:transparent;color:rgb(255, 255, 255);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;">About Us</a></li> | <li style="box-sizing:border-box;display:inline;white-space:nowrap;margin:0px 15px;"><a href="http://sapexperts.wispubs.com/Advisors/SAP-Professional-Journal-Advisors" style="box-sizing:border-box;background:transparent;color:rgb(255, 255, 255);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;">Advisors</a></li> | <li style="box-sizing:border-box;display:inline;white-space:nowrap;margin:0px 15px;"><a href="http://sapexperts.wispubs.com/SAP-Professional-Journal/FAQ" style="box-sizing:border-box;background:transparent;color:rgb(255, 255, 255);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;">FAQ</a></li> | <li style="box-sizing:border-box;display:inline;white-space:nowrap;margin:0px 15px;"><a href="http://sapexperts.wispubs.com/Sitemap-Page/Hierarchical" style="box-sizing:border-box;background:transparent;color:rgb(255, 255, 255);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;">Sitemap</a></li> | <li style="box-sizing:border-box;display:inline;white-space:nowrap;margin:0px 15px;"><a href="http://sapexperts.wispubs.com/Privacy?hubpage=SAP-Professional-Journal" style="box-sizing:border-box;background:transparent;color:rgb(255, 255, 255);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;">Privacy</a></li> | <li style="box-sizing:border-box;display:inline;white-space:nowrap;margin:0px 15px;"><a href="http://sapexperts.wispubs.com/Terms-and-Conditions?hubpage=SAP-Professional-Journal" style="box-sizing:border-box;background:transparent;color:rgb(255, 255, 255);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;">Terms and Conditions</a></li> | <li style="box-sizing:border-box;display:inline;white-space:nowrap;margin:0px 15px;"><a href="http://sapexperts.wispubs.com/Contact-Us?hubpage=SAP-Professional-Journal" style="box-sizing:border-box;background:transparent;color:rgb(255, 255, 255);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;">Contact Us</a></li> 
+ </ul>
+</div>
+
+
+<span style="display:table;clear:both;"> </span></div>
+
+<div style="box-sizing:border-box;margin:0px;padding:20px 0px 40px;background-color:rgb(255, 255, 255);"><span style="display:table;"> </span>
+
+   
+    <div style="box-sizing:border-box;position:relative;min-height:1px;padding-right:15px;padding-left:15px;float:left;width:33.3333333333333%;">
+        <p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"><span style="box-sizing:border-box;font-size:85%;">SAP Experts is published by WIS Publishing, a division of Wellesley Information Services and publisher of SAPinsider.</span></p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"><span style="box-sizing:border-box;font-size:85%;">20 Carematrix Drive, Dedham, MA 02026 USA</span></p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"><span style="box-sizing:border-box;font-size:85%;"> Sales: 1-781-751-8880</span></p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"><span style="box-sizing:border-box;font-size:85%;">Customer Service: 1-888-400-4768; <a href="http://sapexperts.wispubs.com/SAP-Professional-Journal/Articles/How-to-Use-HANA-s-Geospatial-Capabilities?id=E9ECB74A143142899904816A772EA5B2mailto:licenses@wispubs.com" style="box-sizing:border-box;background:transparent;color:rgb(51, 51, 51);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;">licenses@wispubs.com</a></span></p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"><span style="box-sizing:border-box;font-size:85%;">Copyright © 2015 Wellesley Information Services. All rights reserved.</span></p>
+<p style="box-sizing:border-box;margin:0px 0px 10px;font-family:Roboto, sans-serif;font-weight:400;"><span style="box-sizing:border-box;font-size:85%;">SAP and the SAP logo are trademarks or registered trademarks of SAP AG in Germany and several other countries.</span></p>
+    </div>
+    
+
+   <div style="box-sizing:border-box;position:relative;min-height:1px;padding-right:15px;padding-left:15px;float:left;width:33.3333333333333%;">
+        <ul style="box-sizing:border-box;margin-top:0px;margin-bottom:10px;list-style:none;padding-left:120px;">
+            
+        
+            <li style="box-sizing:border-box;font-size:12px;"><a href="http://sapinsider.wispubs.com/" style="box-sizing:border-box;background:transparent;color:rgb(51, 51, 51);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;" target="_blank">SAPinsider</a></li>
+            
+            
+            
+        
+        
+    
+        
+            <li style="box-sizing:border-box;font-size:12px;"><a href="http://sapinsider.wispubs.com/Conferences-and-Seminars" style="box-sizing:border-box;background:transparent;color:rgb(51, 51, 51);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;" target="_blank">SAPinsider Conferences &amp; Seminars</a></li>
+            
+            
+            
+        
+        
+    
+        
+            <li style="box-sizing:border-box;font-size:12px;"><a href="http://www.wisinsidertraining.com/" style="box-sizing:border-box;background:transparent;color:rgb(51, 51, 51);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;" target="_blank">SAPinsider Seminars on Demand</a></li>
+            
+            
+            
+        
+        
+    
+        
+            <li style="box-sizing:border-box;font-size:12px;"><a href="http://store.sapinsider.wispubs.com/" style="box-sizing:border-box;background:transparent;color:rgb(51, 51, 51);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;" target="_blank">SAPinsider Store</a></li>
+            
+            
+            
+        
+        
+    
+        </ul>
+    </div>
+    
+
+   <div style="box-sizing:border-box;position:relative;min-height:1px;padding-right:15px;padding-left:15px;float:left;width:33.3333333333333%;">
+        <ul style="box-sizing:border-box;margin-top:0px;margin-bottom:10px;list-style:none;">
+            
+        
+            <li style="box-sizing:border-box;font-size:12px;"><a href="http://sapinsider.wispubs.com/Magazines/insiderPROFILES" style="box-sizing:border-box;background:transparent;color:rgb(51, 51, 51);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;" target="_blank">insiderPROFILES</a></li>
+            
+            
+            
+        
+        
+    
+        
+            <li style="box-sizing:border-box;font-size:12px;"><a href="http://sapinsider.wispubs.com/Assets/Insider-Research" style="box-sizing:border-box;background:transparent;color:rgb(51, 51, 51);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;" target="_blank">insiderRESEARCH</a></li>
+            
+            
+            
+        
+        
+    
+        
+            <li style="box-sizing:border-box;font-size:12px;"><a href="http://sapexperts.wispubs.com/" style="box-sizing:border-box;background:transparent;color:rgb(51, 51, 51);text-decoration:none;font-family:Roboto, sans-serif;font-weight:400;">SAP Experts</a></li>
+            
+            
+            
+        
+        
+    
+        </ul>
+    </div>
+    
+<span style="display:table;clear:both;"> </span></div>
+</div>
+
+
+
+                    </div>
+           
+            </div>
+    <span style="display:table;clear:both;"> </span></div>
+    
+    </div>
+
+
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+
+
+  
+
+    
+    
+    
+    
+    
+    
+
+
+
+<div style="box-sizing:border-box;width:0px;height:0px;position:relative;"><div style="font-size: 16px"><div>
+  <div style="overflow:hidden;margin:0px;">
+    <img src="HANAGeoSpatial_files/Image [19].png" type="image/png" height="32" style="height:32px;width:150px;" width="150"/>
+    
+    
+  
+</div></div></div></div><div style="box-sizing:border-box;position:absolute;width:1px;height:1px;"><div style="box-sizing:border-box;width:1px;height:1px;background-color:rgb(51, 102, 153);"></div></div><div style="box-sizing:border-box;margin:0px;padding:0px;border:none;position:absolute;width:10px;height:10px;top:-100px;left:-100px;"></div></div></div></div><br/></div>
+</div></body></html> 
